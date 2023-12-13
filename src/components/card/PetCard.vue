@@ -1,5 +1,15 @@
 <script lang="ts" setup>
 import { IconHeart } from '@tabler/icons-vue'
+import type { Cat } from '@/services/cats/cats'
+import { useCatsStore } from '@/store/cats'
+
+const catStore = useCatsStore()
+
+const props = defineProps<{ cat: Cat }>()
+
+const getNewCat = async () => {
+  catStore.updateCat(props.cat.id)
+}
 </script>
 <template>
   <div
@@ -8,7 +18,7 @@ import { IconHeart } from '@tabler/icons-vue'
     <div
       class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"
     >
-      <img alt="cat" src="https://cdn2.thecatapi.com/images/IFXsxmXLm.jpg" />
+      <img :src="cat.url" alt="cat" />
       <div
         class="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60"
       ></div>
@@ -23,18 +33,17 @@ import { IconHeart } from '@tabler/icons-vue'
         <h5
           class="block font-sans text-xl font-medium leading-snug tracking-normal text-blue-gray-900 antialiased"
         >
-          Bengal
+          {{ cat.name }}
         </h5>
       </div>
       <p class="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased">
-        Bengals are a lot of fun to live with, but they're definitely not the cat for everyone, or
-        for first-time cat owners. Extremely intelligent, curious and active, they demand a lot of
-        interaction and woe betide the owner who doesn't provide it.
+        {{ cat.description }}
       </p>
     </div>
     <div class="p-6 pt-3">
       <button
         class="block w-full select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        @click="getNewCat"
       >
         Get New Cat
       </button>

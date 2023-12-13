@@ -26,7 +26,7 @@ interface NavigationItem {
   link: string
 }
 
-const props = defineProps<{ navigationList: NavigationItem[] }>()
+defineProps<{ navigationList: NavigationItem[] }>()
 
 const isHidden = ref(true)
 
@@ -45,7 +45,7 @@ const toggleVisibility = () => {
       <IconMenu2 />
     </button>
     <div
-      v-if="props.navigationList.length > 0"
+      v-if="navigationList.length > 0"
       id="navigation"
       :class="{ hidden: isHidden, 'top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto': true }"
     >
@@ -53,7 +53,7 @@ const toggleVisibility = () => {
         class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto"
       >
         <a
-          v-for="item in props.navigationList"
+          v-for="item in navigationList"
           :key="item.id"
           :href="item.link"
           class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 hover:text-white"
