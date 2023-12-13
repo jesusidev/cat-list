@@ -7,18 +7,8 @@ import GridCard from '@/layouts/grid/GridCard.vue'
 const navigationList = [
   {
     id: 1,
-    name: 'Home',
-    link: '/'
-  },
-  {
-    id: 2,
-    name: 'About',
-    link: '/about'
-  },
-  {
-    id: 3,
-    name: 'Contact',
-    link: '/contact'
+    name: 'View Repo',
+    link: 'https://github.com/jesusidev/cat-list'
   }
 ]
 </script>
