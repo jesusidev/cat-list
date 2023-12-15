@@ -16,13 +16,14 @@ interface CatsStore {
   deleteCat: (id: string) => void
 }
 
-export const useCatsStore = (): CatsStore => {
-  const state = reactive({ cats: [] as Cat[], loading: false, error: null as string | null })
+const state = reactive({ cats: [] as Cat[], loading: false, error: null as string | null })
 
+export const useCatsStore = (): CatsStore => {
   const fetch_cats = useFetchCats()
 
   const getCats = async () => {
     await fetch_cats.loadCats()
+    state.cats = []
     state.loading = true
     state.error = fetch_cats.error.value
 
@@ -46,8 +47,12 @@ export const useCatsStore = (): CatsStore => {
   }
 
   const updateCat = async (id: string) => {
-    console.log('updateCat', id)
-    console.log('state', state.cats)
+    await fetch_cats.loadCats()
+    const cat = getCat(id)
+    const updatedCat = fetch_cats.cats.value[0]
+    if (cat) {
+      Object.assign(cat, updatedCat)
+    }
   }
 
   const deleteCat = (id: string) => {
